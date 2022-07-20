@@ -9,6 +9,7 @@
   --color-primary: #000000;
   --color-secondary: #ffffff;
   --background-color: #2f303a;
+  --background-color-alfa: rgba(47, 48, 58, 0.8);
   --title-color: #212121;
   --common-txtcolor: #757575;
   --footer-contacts: rgb(255, 255, 255, 0.6);
@@ -20,6 +21,10 @@
   --background-hero: #C4C4C4;
   --client-logo: #AFB1B8;
   --client-background:#F5F5F5;
+
+  /* animaeion effect */
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --time-duration: 250ms;
 }
 /******* Стили позиционирования  *******/
 h1,
@@ -109,7 +114,8 @@ body {
   border-bottom: 1px solid var(--header-line);
 }
 
-.nav-link {
+.nav-link { 
+  position: relative;
   display: block;
   padding-top: 32px;
   padding-bottom: 32px;
@@ -118,6 +124,7 @@ body {
 }
 
 .adress-link {
+  
   display: flex;
   align-items: center;
   padding-top: 32px;
@@ -127,8 +134,23 @@ body {
 }
 
 .current {
+  position: relative;
   color: var(--accent-color);
 }
+.current::after{
+  position: absolute;
+bottom: 0;
+left: 0;  
+  content: "";
+  display: block;
+width: 100%;
+height: 4px;
+border-radius: 2px;
+background-color: var(--accent-color);}
+
+
+
+
 
 /* Стилизация визуальных еффектов  елементов */
 .list {
@@ -232,7 +254,6 @@ margin-right: auto;
 /* Стилизация Секция Особенности */
 .features-title {
   padding-bottom: 10px;
-text-transform: uppercase;
   color: var(--title-color);
   font-weight: 700;
   font-size: 14px;
@@ -263,12 +284,38 @@ text-transform: uppercase;
   margin-top: 50px;
 }
 .projects-item {
+  position: relative;
+  display: block;
   width: calc((100% -60px) / 3);
 }
 .projects-item:not(:last-child) {
   margin-right: 30px;
 }
 
+.projects-img{
+  display: block;
+}
+
+
+
+.project-text{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+
+  text-align: center;
+  padding: 27px 0px;
+  color: var(--color-secondary);
+ 
+   background-color: var(--background-color-alfa);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.14;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+
+}
 /* ******************* */
 
 /* Секция Наша команда */
@@ -415,7 +462,7 @@ color: var(--color-secondary);}
 margin-bottom: 20px;
   font-weight: 700;
   line-height: 1.17;
-  letter-spacing: 3%;
+  letter-spacing: 0.03em;
    text-transform: uppercase;
 
 }
@@ -461,6 +508,67 @@ margin-left: auto;
 align-items: baseline;}
 
 
+
+/* ---------------------------- */
+/*        Modal window          */
+/* ---------------------------- */
+
+.backdrop{
+  position: fixed;
+  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  background: rgba(0, 0, 0, 0.2);
+
+  opacity: 1;
+  transition: opacity var(--time-duration)  var(--timing-function);
+}
+
+.backdrop.is-hidden{
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+backdrop.is-hidden .modal{
+  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 0;
+}
+
+.modal{ 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+    height: 581px;
+    width: 528px;
+    background-color: var(--color-secondary);
+    border-radius: 4px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+
+  transition: transform var(--time-duration) var(--timing-function),  opacity var(--time-duration) var(--timing-function);
+   }
+
+.modal-btn{position: absolute;
+top: 8px;
+right: 8px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+padding: 0;
+color: rgba(0, 0, 0, 0.1);
+background-color: var(--color-secondary);
+border-radius: 50%;
+border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
 /* ----------------- */
 
 /* Стилизация Портфолио */
@@ -500,6 +608,8 @@ display: inline-block;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 
   0px 4px 4px rgba(0, 0, 0, 0.06), 
   1px 4px 6px rgba(0, 0, 0, 0.16);
+
+  
 } 
 
 
@@ -539,10 +649,52 @@ display: inline-block;
   color: var(--common-txtcolor);
 }
 
+
+/*    OVERLAY    */
+
+
+
+.overlay-thumb{
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-link:hover .overlay-card {
+  transform: translate(0);
+}
+
+
+.overlay-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 63px 24px;
+  background-color: rgba(33, 150, 243, 0.9);
+  
+  transform: translateY(100%);
+
+  transition: transform var(--time-duration) var(--timing-function);
+}
+
+
+.overlay-text{ 
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.56;
+  letter-spacing: 0.03em;
+  color:  var(--color-secondary);
+  
+}
+
+
+
 .button-list {
   display: flex;
   justify-content: center;
   margin-bottom: 50px;
+  box-shadow:  ;
 }
 
 .button-list .button:hover, .button-list .button:focus

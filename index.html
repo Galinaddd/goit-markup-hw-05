@@ -63,7 +63,7 @@
             Ефективні рішення для <br />
             вашого бізнесу
           </h1>
-          <button class="hero-button" type="button">Замовити послугу</button>
+          <button class="hero-button" type="button" data-modal-open>Замовити послугу</button>
         </div>
       </section>
 
@@ -127,27 +127,33 @@
           <ul class="list projects-list">
             <li class="projects-item">
               <img
+                class="projects-img"
                 src="./images/projects/img-1.jpg"
                 alt="разработка десктоп приложений"
                 width="370"
                 height="294"
               />
+              <p class="project-text">Десктопні додатки</p>
             </li>
             <li class="projects-item">
               <img
+                class="projects-img"
                 src="./images/projects/img-2.jpg"
                 alt="разработка мобильных приложений"
                 width="370"
                 height="294"
               />
+              <p class="project-text">Мобільні додатки</p>
             </li>
             <li class="projects-item">
               <img
+                class="projects-img"
                 src="./images/projects/img-3.jpg"
                 alt="разработка игр"
                 width="370"
                 height="294"
               />
+              <p class="project-text">Дизайнерські рішення</p>
             </li>
           </ul>
         </div>
@@ -425,5 +431,17 @@
         </div>
       </div>
     </footer>
+
+    <!-- Modal window -->
+    <div class="backdrop is-hidden" data-modal>
+      <div class="modal">
+        <button class="modal-btn" data-modal-close>
+          <svg class="modal-btn-icon" width="30" height="30">
+            <use href="./images/icons.svg#modal-btn-icon"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <script src="./js/modal.js"></script>
   </body>
 </html>
